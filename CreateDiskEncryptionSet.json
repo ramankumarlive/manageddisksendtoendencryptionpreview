@@ -1,0 +1,41 @@
+  {
+   "$schema":"https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+   "contentVersion":"1.0.0.0",
+   "parameters":{  
+      "region":{  
+        "type":"string",
+		    "defaultValue":"CentralUSEUAP"
+      },
+    "diskEncryptionSetName": {
+      "type": "string",
+      "defaultValue": "myDiskEncryptionSet1 "
+    },
+    "keyVaultId": {
+      "type": "string",
+      "defaultValue": "/subscriptions/98a2d751-10a7-4f96-aea1-3aaa8a91ead1/resourcegroups/myResourceGroupName/providers/Microsoft.KeyVault/vaults/myKeyVaultName"
+    },
+    "keyVaultKeyUrl":{  
+         "type":"string",
+         "defaultValue": "https://myKeyVaultName.vault.azure.net/keys/myKeyName/203b05eb4d764304819c5011362e8b60"
+      }
+   },
+   "resources":[  
+      {  
+         "apiVersion":"2019-07-01",
+         "type":"Microsoft.Compute/diskEncryptionSets",
+         "name":"[parameters('diskEncryptionSetName')]",
+        "location": "[parameters('region')]",
+        "identity": { 
+          "type": "SystemAssigned"
+        },
+         "properties":{  
+            "activeKey":{
+              "sourceVault": {
+                "id": "[parameters('keyVaultId')]"
+              },
+              "keyUrl": "[parameters('keyVaultKeyUrl')]"
+            }
+         }
+      }
+   ]
+}
