@@ -10,7 +10,7 @@ The above encryption features can be enabled by setting a new property Encryptio
 
 "securityProfile": { "encryptionAtHost": "true" }
 
-## Prerequisite:
+## Prerequisite
 You must enable the feature for your subscription before you use the EncryptionAtHost property for your VM/VMSS. Please follow the steps below to enable the feature for your subscription:
 
 1. Execute the following command to register the feature for your subscription 
@@ -22,7 +22,7 @@ You must enable the feature for your subscription before you use the EncryptionA
  Get-AzProviderFeature -FeatureName "EncryptionAtHost" -ProviderNamespace "Microsoft.Compute"  
 ```
 
-## To enable end to end encryption for disks attached to a VM with customer managed keys (CMK), you must follow the steps below:
+## Enable end to end encryption for disks attached to a VM with customer managed keys (CMK)
 
 1. Follow the instructions [here](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/disk-encryption#setting-up-your-azure-key-vault-and-diskencryptionset) for creating a Key Vault for storing your keys and a DiskEncryptionSet pointing to a key in the Key Vault
 
@@ -39,7 +39,7 @@ New-AzResourceGroupDeployment -ResourceGroupName yourResourceGroupName `
   -region "CentralUSEUAP"
 ```
 
-## To enable end to end encryption for disks attached to a VM with platform managed keys (PMK), you must follow the steps below:
+## Enable end to end encryption for disks attached to a VM with platform managed keys (PMK)
 
 1. Create a VM with managed disks using the sample template [CreateVMWithDisksEncryptedInTransitAtRestWithPMK.json](https://github.com/ramankumarlive/manageddisksendtoendencryptionpreview/blob/master/CreateVMWithDisksEncryptedInTransitAtRestWithPMK.json)
 
