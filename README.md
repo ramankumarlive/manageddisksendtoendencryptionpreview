@@ -28,27 +28,27 @@ You must enable the feature for your subscription before you use the EncryptionA
 
 2. Create a VM with managed disks by passing the resource URI of the DiskEncryptionSet created in the step #1 to the the sample template [CreateVMWithDisksEncryptedInTransitAtRestWithCMK.json](https://github.com/ramankumarlive/manageddisksendtoendencryptionpreview/blob/master/CreateVMWithDisksEncryptedInTransitAtRestWithCMK.json)
 
-```PowerShell
-$password=ConvertTo-SecureString -String "yourPassword" -AsPlainText -Force
-New-AzResourceGroupDeployment -ResourceGroupName yourResourceGroupName `
-  -TemplateUri "https://raw.githubusercontent.com/ramankumarlive/manageddisksendtoendencryptionpreview/master/CreateVMWithDisksEncryptedInTransitAtRestWithCMK.json" `
-  -virtualMachineName "yourVMName" `
-  -adminPassword $password `
-  -vmSize "Standard_DS3_V2" `
-  -diskEncryptionSetId "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/yourResourceGroupName/providers/Microsoft.Compute/diskEncryptionSets/yourDESName" `
-  -region "CentralUSEUAP"
-```
+ ```PowerShell
+ $password=ConvertTo-SecureString -String "yourPassword" -AsPlainText -Force
+ New-AzResourceGroupDeployment -ResourceGroupName yourResourceGroupName `
+   -TemplateUri "https://raw.githubusercontent.com/ramankumarlive/manageddisksendtoendencryptionpreview/master/CreateVMWithDisksEncryptedInTransitAtRestWithCMK.json" `
+   -virtualMachineName "yourVMName" `
+   -adminPassword $password `
+   -vmSize "Standard_DS3_V2" `
+   -diskEncryptionSetId "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/yourResourceGroupName/providers/Microsoft.Compute/diskEncryptionSets/yourDESName" `
+   -region "CentralUSEUAP"
+ ```
 
 ## Enable end to end encryption for disks attached to a VM with platform managed keys (PMK)
 
 1. Create a VM with managed disks using the sample template [CreateVMWithDisksEncryptedInTransitAtRestWithPMK.json](https://github.com/ramankumarlive/manageddisksendtoendencryptionpreview/blob/master/CreateVMWithDisksEncryptedInTransitAtRestWithPMK.json)
 
-```PowerShell
-$password=ConvertTo-SecureString -String "Password@123" -AsPlainText -Force
-New-AzResourceGroupDeployment -ResourceGroupName CMKTesting `
-  -TemplateUri "https://raw.githubusercontent.com/ramankumarlive/manageddisksendtoendencryptionpreview/master/CreateVMWithDisksEncryptedInTransitAtRestWithPMK.json" `
-  -virtualMachineName "ramane2evm12" `
-  -adminPassword $password `
-  -vmSize "Standard_DS3_V2" `
-  -region "CentralUSEUAP"
-```
+ ```PowerShell
+ $password=ConvertTo-SecureString -String "Password@123" -AsPlainText -Force
+ New-AzResourceGroupDeployment -ResourceGroupName CMKTesting `
+   -TemplateUri "https://raw.githubusercontent.com/ramankumarlive/manageddisksendtoendencryptionpreview/master/CreateVMWithDisksEncryptedInTransitAtRestWithPMK.json" `
+   -virtualMachineName "ramane2evm12" `
+   -adminPassword $password `
+   -vmSize "Standard_DS3_V2" `
+   -region "CentralUSEUAP"
+ ```
