@@ -22,9 +22,11 @@ You must enable the feature for your subscription before you use the EncryptionA
  Get-AzProviderFeature -FeatureName "EncryptionAtHost" -ProviderNamespace "Microsoft.Compute"  
 ```
 ## Restrictions
-1. The feature is available only in the USCentralEUAP region
-2. You cannot enable the feature if you have enabled [Azure Disks Encryption (guest-VM encryption using bitlocker/VM-Decrypt)](https://docs.microsoft.com/en-us/azure/security/fundamentals/azure-disk-encryption-vms-vmss) for your VMs/VMSSes.
-3. Legacy VM Sizes are not supported. You can find the list of supported VM sizes by:
+1. The feature is available only in the USCentralEUAP region.
+2. You cannot enable the feature if you have enabled [Azure Disks Encryption (guest-VM encryption using bitlocker/VM-Decrypt)](https://docs.microsoft.com/en-us/azure/security/fundamentals/azure-disk-encryption-vms-vmss) for your VMs/VMSSes and vice versa.
+3. You have to deallocate your existing VMs to enable the encryption. 
+4. You can enable the encryption for existing VMSS. However, only new VMs created after enabling the encryption is encrypted. 
+5. Legacy VM Sizes are not supported. You can find the list of supported VM sizes by:
 
    a. Calling the [Resource Skus API](https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list) and checking that the   EncryptionAtHostSupported capability is set to True
    ```json
@@ -62,6 +64,7 @@ You must enable the feature for your subscription before you use the EncryptionA
        }
    }
    ```
+6. VM Size upgrade will result in validation to check if the new VM size supports the EncryptionAtHost feature.
 
 ## Enable end to end encryption for disks attached to a VM with customer managed keys (CMK)
 
