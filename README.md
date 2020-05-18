@@ -21,6 +21,47 @@ You must enable the feature for your subscription before you use the EncryptionA
 ```PowerShell
  Get-AzProviderFeature -FeatureName "EncryptionAtHost" -ProviderNamespace "Microsoft.Compute"  
 ```
+## Restrictions
+1. The feature is available only in the USCentralEUAP region
+2. You cannot enable the feature if you have enabled [Azure Disks Encryption (guest-VM encryption using bitlocker/VM-Decrypt)](https://docs.microsoft.com/en-us/azure/security/fundamentals/azure-disk-encryption-vms-vmss) for your VMs/VMSSes.
+3. Legacy VM Sizes are not supported. You can find the list of supported VM sizes by:
+
+   a. Calling the [Resource Skus API](https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list) and checking that the   EncryptionAtHostSupported capability is set to True
+   ```json
+        {
+         "resourceType": "virtualMachines",
+         "name": "Standard_DS1_v2",
+         "tier": "Standard",
+         "size": "DS1_v2",
+         "family": "standardDSv2Family",
+         "locations": [
+           "CentralUSEUAP"
+         ],
+         "capabilities": [
+           {
+             "name": "EncryptionAtHostSupported",
+             "value": "True"
+           }
+         ]
+       }
+    ```   
+   b. Calling the [Get-AzComputeResourceSku](https://docs.microsoft.com/en-us/powershell/module/az.compute/get-azcomputeresourcesku?view=azps-3.8.0) PowerShell cmdlet 
+    ```powershell
+    $vmSizes=Get-AzComputeResourceSku | where{$_.ResourceType -eq 'virtualMachines' -and $_.Locations.Contains('CentralUSEUAP')} 
+
+   foreach($vmSize in $vmSizes)
+   {
+       foreach($capability in $vmSize.capabilities)
+       {
+           if($capability.Name -eq 'EncryptionAtHostSupported' -and $capability.Value -eq 'true')
+           {
+               $vmSize
+
+           }
+
+       }
+   }
+   ```
 
 ## Enable end to end encryption for disks attached to a VM with customer managed keys (CMK)
 
@@ -38,6 +79,7 @@ You must enable the feature for your subscription before you use the EncryptionA
    -diskEncryptionSetId "/subscriptions/dd80b94e-0463-4a65-8d04-c94f403879dc/resourceGroups/yourResourceGroupName/providers/Microsoft.Compute/diskEncryptionSets/yourDESName" `
    -region "CentralUSEUAP"
  ```
+
 
 ## Enable end to end encryption for disks attached to a VM with platform managed keys (PMK)
 
