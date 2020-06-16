@@ -11,16 +11,8 @@ The above encryption features can be enabled by setting a new property Encryptio
 "securityProfile": { "encryptionAtHost": "true" }
 
 ## Prerequisite
-You must enable the feature for your subscription before you use the EncryptionAtHost property for your VM/VMSS. Please follow the steps below to enable the feature for your subscription:
+You must get the feature enabled for your subscriptions before you use the EncryptionAtHost property for your VM/VMSS. Please send an email to AzureDisks@microsoft.com with your subscription Ids to get the feature enabled for your subscriptions.
 
-1. Execute the following command to register the feature for your subscription 
-```PowerShell
- Register-AzProviderFeature -FeatureName "EncryptionAtHost" -ProviderNamespace "Microsoft.Compute" 
-```
-2. Please check that the registration state is Registered (takes a few minutes) using the command below before trying out the feature. 
-```PowerShell
- Get-AzProviderFeature -FeatureName "EncryptionAtHost" -ProviderNamespace "Microsoft.Compute"  
-```
 ## Restrictions
 1. The feature is available only in the USCentralEUAP region.
 2. You cannot enable the feature if you have enabled [Azure Disks Encryption (guest-VM encryption using bitlocker/VM-Decrypt)](https://docs.microsoft.com/en-us/azure/security/fundamentals/azure-disk-encryption-vms-vmss) for your VMs/VMSSes and vice versa.
